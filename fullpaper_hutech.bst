@@ -8,6 +8,8 @@
 % This style was made from 'newapa.bst' with tweaking to make it be conformed
 % to GSHS thesis style by 14088 Lee, Juchan.
 
+% % % Modified edition 2020.11 by Inkyu Park  % % % % % % % % % % % % % %
+
 ENTRY
   { address
     author
