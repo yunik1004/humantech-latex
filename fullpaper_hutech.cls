@@ -3,6 +3,7 @@
 % % % First edition 2015.10.30 by Chinook Mok % % % % % % % % % % % % % % %
 % % % Modified edition 2015.11.28 by Seungwon Park % % % % % % % % % % % % % % %
 % % % Modified by GSHS TeX Society(http://latex.gs.hs.kr) % % % % % % % %
+% % % Modified edition 2020.11 by Inkyu Park  % % % % % % % % % % % % % % 
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \ProvidesClass{fullpaper_hutech}
 \LoadClass[pdftex, a4size, twoside, 10pt, twocolumn]{article}
@@ -22,64 +23,69 @@
 \usepackage{ctable} % To customize table
 \usepackage{cite}     % To display citations as [1-3] instead of [1,2,3]
 \usepackage{enumitem} % To remove the hanging indentation.
-\usepackage{color} % To color header and footer as gray
+\usepackage{xcolor} % To color header and footer
 
 %%% following packages are optional %%%
 \usepackage{amssymb}
 \usepackage{amsmath}
-\usepackage{amsthm} 
+\usepackage{amsthm}
 \usepackage[makeroom]{cancel} %To use cancelto of terms in equation
+
+%%% Color settings %%%
+\definecolor{blackgray}{RGB}{96, 96, 96}
+
+%%% Line spacing %%%
+\usepackage{setspace}
+\setstretch{1.0}
 
 
 %%%%%%%%%% page setting %%%%%%%%%%%
 \setlength{\paperwidth}{210mm}
 \setlength{\paperheight}{297mm}
 \setlength{\hoffset}{-1in}
-\setlength{\oddsidemargin}{18mm}
-\setlength{\evensidemargin}{18mm}
+\setlength{\oddsidemargin}{15mm}
+\setlength{\evensidemargin}{15mm}
 \setlength{\textwidth}{180mm}
 \setlength{\marginparsep}{0mm}
 \setlength{\marginparwidth}{0mm}
 \setlength{\voffset}{-1in}
-\setlength{\topmargin}{10mm}
+\setlength{\topmargin}{20mm}
 \setlength{\headheight}{12pt}
-\setlength{\headsep}{12pt}
-\setlength{\textheight}{244mm}
-%\setlength{\footskip}{56pt}
+\setlength{\headsep}{5.7666mm} % 30mm - (20mm + 12pt) = 5.7666mm
+\setlength{\textheight}{242mm} % 297mm - (30mm + 25mm) = 242mm
+\setlength{\footskip}{10.7666mm} % 25mm - (10mm + 8pt * 1.5) = 10.7666mm
 %%%% two column setting %%%
 \setlength{\columnsep}{20pt}
 
 %%%%%%%%% Header & Footer setting %%%%
 \pagestyle{fancy}
-%\rhead{}
-%\chead{}
-%\lhead{\ifthenelse{\value{page}=1}{\color{gray} \fontsize{12}{0}\selectfont $\bf{26}^{\bf th}\textbf{ HumanTech Paper Award}$}{\color{gray} \fontsize{9}{0}\selectfont $23^{\rd nd}\textrm{ HumanTech Paper Award}$}}
 
-\fancyhead[RO,LE]{\color{gray} \fontsize{9}{0}\selectfont $26^{\rm th}\textrm{ HumanTech Paper Award}$}
+\fancyhead[RO,LE]{\color{blackgray} \fontsize{9}{0}\selectfont $27^{\rm th}\textrm{ Humantech Paper Award}$}
 \fancyhead[LO,RE]{}
-\fancyfoot[LO]{\color{gray} \footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것은 엄격히 금지됩니다.}
-\fancyfoot[RO]{\color{gray} \thepage}
-\fancyfoot[LE]{\color{gray} \thepage}
-\fancyfoot[RE]{\color{gray} \footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것은 엄격히 금지됩니다.}
+\fancyfoot[LO]{\footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것을 엄격히 금지합니다.}
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
+\fancyfoot[RE]{\footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것을 엄격히 금지합니다.}
 \fancyfoot[C]{}
 \renewcommand{\headrulewidth}{0pt}
 
 \fancypagestyle{firstpage}{
 \fancyhf{}
-\fancyhead[L]{\color{gray} \fontsize{12}{0}\selectfont $\bf{26}^{\bf th}\textbf{ HumanTech Paper Award}$}
-\fancyfoot[L]{\color{gray} \footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것은 엄격히 금지됩니다.}
-\fancyfoot[R]{\color{gray} \thepage}
+\fancyhead[L]{\color{blackgray} \fontsize{12}{0}\selectfont $\bf{27}^{\bf th}\textbf{ Humantech Paper Award}$}
+\fancyfoot[L]{\footnotesize 본 논문에 포함된 정보의 전부 또는 일부를 무단으로 제3자에게 공개, 배포, 복사 또는 사용하는 것을 엄격히 금지합니다.}
+\fancyfoot[R]{\thepage}
 }
 
 \makeatletter
-\let\ps@plain\ps@fancy 
+\let\ps@plain\ps@fancy
 \makeatother
 
 %%%%%%%% Title Setting %%%%%%
 \makeatletter
-\renewcommand{\maketitle}{\vspace*{8pt}\bgroup\setlength{\parindent}{0pt}
+\renewcommand{\maketitle}{\bgroup\setlength{\parindent}{0pt}
+\vspace{10pt}
 \begin{flushleft}
-  \fontsize{20}{0}\selectfont{\textbf{\vspace{15pt}\@title}}
+  \fontsize{20}{0}\selectfont{\textbf{\@title}}
 \end{flushleft}\egroup
 }
 \makeatother
@@ -88,8 +94,9 @@
 \renewcommand{\abstractname}{}
 \renewcommand{\absnamepos}{empty}
 \renewenvironment{abstract}
- {\small
-%  \bfseries \abstractname\vspace{-2em}\vspace{0pt}
+ {
+  \bfseries \abstractname
+  \vspace{24pt}
   \list{}{
     \setlength{\leftmargin}{0mm}
     \setlength{\rightmargin}{\leftmargin}
@@ -97,7 +104,7 @@
   \item\relax
   }
  {\endlist}
- 
+
 
 %%%%%% Section Title Setting %%%%%%% % Modified : added subsubsection
 \titleformat*{\section}{\fontsize{11}{11}\selectfont\bfseries}
