@@ -5,7 +5,7 @@
 % (1) you make absolutely no changes to your copy, including name, or
 % (2) if you do make changes, you name it something other than 'newapa.bst'.
 
-% This style was made from 'newapa.bst' with tweaking to make it be conformed 
+% This style was made from 'newapa.bst' with tweaking to make it be conformed
 % to GSHS thesis style by 14088 Lee, Juchan.
 
 ENTRY
@@ -194,8 +194,7 @@ before.all 'output.state :=
 }
 
 FUNCTION {fin.entry}
-{ add.period$
-  write$
+{ write$
   newline$
 }
 
@@ -295,6 +294,24 @@ FUNCTION {emphasize.space}
 if$
 }
 
+FUNCTION {bold}
+{ duplicate$ empty$
+{ pop$ "" }
+{ "{\bfseries " swap$ * "}" * }
+if$
+}
+
+FUNCTION {bold.space}
+{ duplicate$ empty$
+{ pop$ "" }
+{ "{\bfseries " swap$ * "\/}" * }
+if$
+}
+
+FUNCTION {add.blank}
+{  " " * before.all 'output.state :=
+}
+
 INTEGERS { nameptr namesleft numnames }
 
 FUNCTION {format.names}
@@ -324,7 +341,7 @@ FUNCTION {format.names}
           t "others" =
           { " et~al." * }
           { " \& " * t * }
-          if$           
+          if$
         }
         if$
       }
@@ -493,7 +510,7 @@ FUNCTION {format.bvolume}
     { "volume" volume tie.or.space.connect
       series empty$
         'skip$
-        { " of " * series emphasize * }
+        { " of " * series bold * }
       if$
       "volume and number" number either.or.check
     }
@@ -572,11 +589,11 @@ FUNCTION {format.vol.num.pages}
 { number empty$
     { volume empty$
        'skip$
-       { "{\em " volume * "}" * }
+       { "{\bfseries " volume * "}" * }
 %	   { "\underline{" volume * "}" * }
       if$
     }
-    { volume emphasize.space
+    { volume bold.space
       number empty$
        {"there's a number but no volume in " cite$ * warning$ }
        { "(" number * ")" * * }
@@ -725,22 +742,23 @@ FUNCTION {format.incoll.inproc.crossref}
 
 FUNCTION {article}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output          % added
-  output.year.check                 % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   crossref missing$
     { journal emphasize "journal" output.check
+      add.blank
       format.vol.num.pages output
     }
     { format.article.crossref output.nonnull
       format.pages output
     }
   if$
+  output.year.check                 % added
   new.block
   note output
   fin.entry
@@ -749,9 +767,9 @@ FUNCTION {article}
 FUNCTION {book}
 { output.bibitem
   author empty$
-    { format.editors.dot 
+    { format.editors.dot
 	  "author and editor" output.check }
-    { format.authors 
+    { format.authors
 	  output.nonnull
       crossref missing$
     	{ "author and editor" editor either.or.check }
@@ -759,9 +777,8 @@ FUNCTION {book}
       if$
     }
   if$
-  output.year.check       % added
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   crossref missing$
     { format.bvolume output
@@ -775,6 +792,7 @@ FUNCTION {book}
       format.book.crossref output.nonnull
     }
   if$
+  output.year.check       % added
 %  format.edition output
   new.block
   note output
@@ -785,13 +803,13 @@ FUNCTION {booklet}
 { output.bibitem
   format.authors output
   author format.key output          % added
-  output.year.check                 % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   howpublished output
   address output
+  output.year.check                 % added
   new.block
   note output
   fin.entry
@@ -800,8 +818,8 @@ FUNCTION {booklet}
 FUNCTION {inbook}
 { output.bibitem
   author empty$
-    { format.editors.dot 
-      "author and editor" output.check 
+    { format.editors.dot
+      "author and editor" output.check
     }
     { format.authors output.nonnull
       crossref missing$
@@ -810,19 +828,18 @@ FUNCTION {inbook}
       if$
     }
   if$
-  output.year.check                 % added
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   crossref missing$
     { format.bvolume output
-      format.chapter.pages 
+      format.chapter.pages
       "chapter and pages" output.check
       new.block
       format.number.series output
       new.sentence
       address output
-      publisher 
+      publisher
       "publisher" output.check.colon
     }
     { format.chapter.pages "chapter and pages" output.check
@@ -830,6 +847,7 @@ FUNCTION {inbook}
       format.book.crossref output.nonnull
     }
   if$
+  output.year.check                 % added
 %  format.edition output
   new.block
   note output
@@ -841,13 +859,12 @@ FUNCTION {incollection}
   format.authors
   "author" output.check
   author format.key output       % added
-  output.year.check              % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   crossref missing$
-  { format.in.ed.booktitle.incoll 
+  { format.in.ed.booktitle.incoll
     "booktitle" output.check.colon
     format.bvolume output
     format.number.series output
@@ -856,11 +873,12 @@ FUNCTION {incollection}
     address output
     publisher "publisher" output.check.colon
   }
-  { format.incoll.inproc.crossref 
+  { format.incoll.inproc.crossref
 	output.nonnull
     format.chapter.pages output
   }
   if$
+  output.year.check              % added
   new.block
   note output
   fin.entry
@@ -868,16 +886,15 @@ FUNCTION {incollection}
 
 FUNCTION {inproceedings}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output            % added
-  output.year.check                   % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   crossref missing$
-    { format.in.ed.booktitle 
+    { format.in.ed.booktitle
 	  "booktitle" output.check
       format.bvolume output
       format.number.series output
@@ -891,6 +908,7 @@ FUNCTION {inproceedings}
       format.pages output
     }
   if$
+  output.year.check                   % added
   new.block
   note output
   fin.entry
@@ -902,9 +920,8 @@ FUNCTION {manual}
 { output.bibitem
   format.authors output
   author format.key output          % added
-  output.year.check                 % added
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   organization address new.block.checkb
 % Reversed the order of "address" and "organization", added the ":".
@@ -914,6 +931,7 @@ FUNCTION {manual}
 %  ":" output
 %  organization output
 %  format.edition output
+  output.year.check                 % added
   new.block
   note output
   fin.entry
@@ -921,17 +939,17 @@ FUNCTION {manual}
 
 FUNCTION {mastersthesis}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output          % added
-  output.year.check                 % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   "Master's thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
+  output.year.check                 % added
   new.block
   note output
   fin.entry
@@ -941,11 +959,11 @@ FUNCTION {misc}
 { output.bibitem
   format.authors output
   author format.key output            % added
-  output.year.check                   % added
   title howpublished new.block.checkb
   format.title output
   new.block
   howpublished output
+  output.year.check                   % added
   new.block
   note output
   fin.entry
@@ -954,17 +972,17 @@ FUNCTION {misc}
 
 FUNCTION {phdthesis}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output            % added
-  output.year.check                   % added
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   new.block
   "PhD thesis" format.thesis.type output.nonnull
   school "school" output.check
   address output
+  output.year.check                   % added
   new.block
   note output
   fin.entry
@@ -977,9 +995,8 @@ FUNCTION {proceedings}
     { format.editors.dot output.nonnull }
   if$
   author format.key output             % added
-  output.year.check                    % added
   new.block
-  format.btitle 
+  format.btitle
   "title" output.check
   format.bvolume output
   format.number.series output
@@ -987,6 +1004,7 @@ FUNCTION {proceedings}
   new.sentence
   organization output
   publisher output
+  output.year.check                    % added
   new.block
   note output
   fin.entry
@@ -994,18 +1012,18 @@ FUNCTION {proceedings}
 
 FUNCTION {techreport}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output             % added
-  output.year.check                    % added
   new.block
-  format.title 
+  format.title
   "title" output.check
   new.block
   format.tr.number output.nonnull
-  institution 
+  institution
   "institution" output.check
   address output
+  output.year.check                    % added
   new.block
   note output
   fin.entry
@@ -1013,13 +1031,13 @@ FUNCTION {techreport}
 
 FUNCTION {unpublished}
 { output.bibitem
-  format.authors 
+  format.authors
   "author" output.check
   author format.key output              % added
-  output.year.check                      % added
   new.block
-  format.title 
+  format.title
   "title" output.check
+  output.year.check                      % added
   new.block
   note "note" output.check
   fin.entry
@@ -1115,19 +1133,19 @@ INTEGERS { fullptr numfull fullsleft }
 STRINGS { u1 u2 }
 
 FUNCTION {my.full.label}
-{ 
+{
 % Initialize 'u1','u2','s'.
-  "" 'u1 :=                                       
-  "" 'u2 :=                     
-  's :=                      
+  "" 'u1 :=
+  "" 'u2 :=
+  's :=
 
 % Initialize 'fullptr','numfull','fullsleft'.
-  #1 'fullptr :=                         
-  s num.names$ 'numfull :=   
-  numfull 'fullsleft :=          
+  #1 'fullptr :=
+  s num.names$ 'numfull :=
+  numfull 'fullsleft :=
 
 % enter the while loop which generates the first-citation information.
-% while we have names left, 
+% while we have names left,
 %     format the next name
 %   if this is the next-to-last name, tack the ampersand on the end
 %   else if this isn't the last name, tack the comma on the end.
@@ -1135,31 +1153,31 @@ FUNCTION {my.full.label}
 %   update the counters.
 
   { fullsleft #0 > }
-  { s fullptr "{vv~}{ll}" format.name$ 'u1 :=  
+  { s fullptr "{vv~}{ll}" format.name$ 'u1 :=
      fullsleft #2 =
        { u1 " \& " * 'u1 := }
-      { fullsleft #2 > 
+      { fullsleft #2 >
            { u1 ", " * 'u1 := }
            'skip$
          if$
         }
     if$
      u2 u1 * 'u2 :=
-     fullptr #1 + 'fullptr :=         
-     fullsleft #1 - 'fullsleft :=  
+     fullptr #1 + 'fullptr :=
+     fullsleft #1 - 'fullsleft :=
   }
   while$
 
 % push 'u2' onto the stack -- our first-citation information.
-  u2        
+  u2
 }
 
 FUNCTION {format.lab.names}
-{ 's :=                             
-  s #1 "{vv~}{ll}" format.name$        
+{ 's :=
+  s #1 "{vv~}{ll}" format.name$
   s num.names$ duplicate$
-  #2 >                                
-     { pop$ " et~al." * }            
+  #2 >
+     { pop$ " et~al." * }
      { #2 <
           'skip$
           { s #2 "{ff }{vv }{ll}{ jj}" format.name$ "others" =
@@ -1221,12 +1239,12 @@ FUNCTION {calc.label}
         if$
     }
   if$
-  duplicate$    
+  duplicate$
 
   author my.full.label  % generate the first-citation information.
 
   "\protect\citeauthoryear{" swap$ * "}{" * swap$ * "}{" *
-  year field.or.null purify$ #-1 #4 substring$ *  
+  year field.or.null purify$ #-1 #4 substring$ *
   'label :=
   year field.or.null purify$ #-1 #4 substring$ *
   sortify 'sort.label :=
