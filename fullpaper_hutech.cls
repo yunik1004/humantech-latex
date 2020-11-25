@@ -12,6 +12,7 @@
 \usepackage[T1]{fontenc}   % To use Times New Roman
 \usepackage[utf8]{inputenc}% To use Times New Roman
 \usepackage{mathptmx}      % To use Times New Roman
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \usepackage{fancyhdr}      % To customize header and footer
 \usepackage{ifthen}        % To distinguish the first page in header
 \usepackage{abstract}      % To customize abstract
