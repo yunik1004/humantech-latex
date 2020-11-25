@@ -3,7 +3,7 @@
 % % % First edition 2015.10.30 by Chinook Mok % % % % % % % % % % % % % % %
 % % % Modified edition 2015.11.28 by Seungwon Park % % % % % % % % % % % % % % %
 % % % Modified by GSHS TeX Society(http://latex.gs.hs.kr) % % % % % % % %
-% % % Modified edition 2020.11 by Inkyu Park  % % % % % % % % % % % % % % 
+% % % Modified edition 2020.11 by Inkyu Park  % % % % % % % % % % % % % %
 % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
 \ProvidesClass{fullpaper_hutech}
 \LoadClass[pdftex, a4size, twoside, 10pt, twocolumn]{article}
@@ -24,6 +24,7 @@
 \usepackage{cite}     % To display citations as [1-3] instead of [1,2,3]
 \usepackage{enumitem} % To remove the hanging indentation.
 \usepackage{xcolor} % To color header and footer
+\usepackage[super]{natbib}
 
 %%% following packages are optional %%%
 \usepackage{amssymb}
@@ -107,6 +108,11 @@
 
 
 %%%%%% Section Title Setting %%%%%%% % Modified : added subsubsection
+\makeatletter
+\def\remove@@dot\csname the#1\endcsname{\arabic{#1}}
+\def\p@section{\remove@@dot}
+\makeatother
+
 \titleformat*{\section}{\fontsize{11}{11}\selectfont\bfseries}
 \titleformat*{\subsection}{\fontsize{10}{10}\selectfont}
 \titleformat*{\subsubsection}{\fontsize{10}{10}\selectfont}
