@@ -25,6 +25,7 @@
 \usepackage{cite}     % To display citations as [1-3] instead of [1,2,3]
 \usepackage{enumitem} % To remove the hanging indentation.
 \usepackage{xcolor} % To color header and footer
+\usepackage{url}
 
 %%% following packages are optional %%%
 \usepackage{amssymb}

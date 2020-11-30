@@ -33,6 +33,8 @@ ENTRY
     type
     volume
     year
+    url
+    urldate
   }
   {}
   { label extra.label sort.label }
@@ -391,6 +393,18 @@ FUNCTION {format.authors}
 { author empty$
     { "" }
     { author format.names }
+  if$
+}
+
+FUNCTION {format.url}
+{ url duplicate$ empty$
+    { pop$ "" }
+    { "\url{" swap$ * "}" *
+      urldate duplicate$ empty$
+        { pop$ }
+        { " (Accessed: "  swap$ * ")" * * }
+      if$
+    }
   if$
 }
 
@@ -917,6 +931,23 @@ FUNCTION {inproceedings}
 }
 
 FUNCTION {conference} { inproceedings }
+
+FUNCTION {online}
+{ output.bibitem
+  format.authors
+  "author" output.check
+  author format.key output
+  new.block
+  format.title
+  "title" output.check
+  new.block
+  format.url
+  "url" output.check
+  output.year.check              % added
+  new.block
+  note output
+  fin.entry
+}
 
 FUNCTION {manual}
 { output.bibitem
