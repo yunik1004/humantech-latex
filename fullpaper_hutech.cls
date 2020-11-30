@@ -124,7 +124,7 @@
 \makeatother
 
 %%%%% Caption(Figure/Table) Setting %%%%%%%
-\captionsetup{figurename=Fig.} % Figure label (FIG: --> FIGURE)
+\captionsetup{figurename=Fig., singlelinecheck=off} % Figure label (FIG: --> FIGURE)
 \captionsetup[table]{
 name=Table,   % Table label (Table --> TABLE)
 singlelinecheck=off  % Left aligned
